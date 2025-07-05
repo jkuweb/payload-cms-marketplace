@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     zipcodes: Zipcode;
+    properties: Property;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -79,6 +80,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     zipcodes: ZipcodesSelect<false> | ZipcodesSelect<true>;
+    properties: PropertiesSelect<false> | PropertiesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -177,6 +179,23 @@ export interface Zipcode {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "properties".
+ */
+export interface Property {
+  id: number;
+  title?: string | null;
+  street: string;
+  /**
+   * Elegir el código postal
+   */
+  zipcode: number | Zipcode;
+  price: number;
+  listingStatus: 'forsale' | 'pending' | 'contract' | 'sold' | 'notsale';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -193,6 +212,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'zipcodes';
         value: number | Zipcode;
+      } | null)
+    | ({
+        relationTo: 'properties';
+        value: number | Property;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -289,6 +312,19 @@ export interface ZipcodesSelect<T extends boolean = true> {
   latitude?: T;
   longitude?: T;
   est_population?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "properties_select".
+ */
+export interface PropertiesSelect<T extends boolean = true> {
+  title?: T;
+  street?: T;
+  zipcode?: T;
+  price?: T;
+  listingStatus?: T;
   updatedAt?: T;
   createdAt?: T;
 }
