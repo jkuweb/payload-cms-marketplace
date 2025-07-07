@@ -4,6 +4,7 @@ export const Properties: CollectionConfig = {
   slug: 'properties',
   admin: {
     useAsTitle: 'title',
+    preview: ({ id }) => `http://localhost:3000/properties/${id}`,
   },
   fields: [
     {
@@ -57,6 +58,12 @@ export const Properties: CollectionConfig = {
           value: 'notforsale',
         },
       ],
+    },
+    {
+      name: 'features',
+      type: 'relationship',
+      relationTo: 'features',
+      hasMany: true,
     },
   ],
 }

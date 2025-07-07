@@ -196,6 +196,7 @@ export interface Property {
   zipcode: number | Zipcode;
   price?: number | null;
   listingStatus: 'forsale' | 'pending' | 'contract' | 'sold' | 'notforsale';
+  features?: (number | Feature)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -348,6 +349,7 @@ export interface PropertiesSelect<T extends boolean = true> {
   zipcode?: T;
   price?: T;
   listingStatus?: T;
+  features?: T;
   updatedAt?: T;
   createdAt?: T;
 }
