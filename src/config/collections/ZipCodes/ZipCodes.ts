@@ -13,6 +13,7 @@ export const ZipCodes: CollectionConfig = {
     {
       name: 'code',
       type: 'number',
+      unique: true,
     },
     {
       type: 'row',
