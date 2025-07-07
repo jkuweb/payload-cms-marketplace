@@ -18,6 +18,11 @@ async function seed() {
     where: {},
   })
 
+  await payload.delete({
+    collection: 'features',
+    where: {},
+  })
+
   console.log('Clearing zipcodes collection first...')
 
   await seedZipCodes(payload)
