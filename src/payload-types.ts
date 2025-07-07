@@ -190,10 +190,19 @@ export interface Property {
   id: number;
   title: string;
   street: string;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    state_abbr: string;
+    zip: string;
+    full_address: string;
+    [k: string]: unknown;
+  };
   /**
    * Select a ZIP code for this property.
    */
-  zipcode: number | Location;
+  location: number | Location;
   price?: number | null;
   listingStatus: 'forsale' | 'pending' | 'contract' | 'sold' | 'notforsale';
   features?: (number | Feature)[] | null;
@@ -346,7 +355,8 @@ export interface LocationsSelect<T extends boolean = true> {
 export interface PropertiesSelect<T extends boolean = true> {
   title?: T;
   street?: T;
-  zipcode?: T;
+  address?: T;
+  location?: T;
   price?: T;
   listingStatus?: T;
   features?: T;
