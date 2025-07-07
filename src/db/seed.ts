@@ -1,6 +1,6 @@
 import { getPayload } from 'payload'
 import config from '../payload.config'
-import { seedZipCodes } from './seeders/zipcodes'
+import { seedLocations } from './seeders/locations'
 import seedFeatures from './seeders/features'
 async function seed() {
   console.log('Seeding database...')
@@ -14,7 +14,7 @@ async function seed() {
   })
 
   await payload.delete({
-    collection: 'zipcodes',
+    collection: 'locations',
     where: {},
   })
 
@@ -25,7 +25,7 @@ async function seed() {
 
   console.log('Clearing zipcodes collection first...')
 
-  await seedZipCodes(payload)
+  await seedLocations(payload)
   await seedFeatures(payload)
 }
 

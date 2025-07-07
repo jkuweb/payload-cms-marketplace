@@ -4,21 +4,21 @@ import path, { dirname } from 'path'
 import { Payload } from 'payload'
 import { fileURLToPath } from 'url'
 
-export async function seedZipCodes(payload: Payload) {
+export async function seedLocations(payload: Payload) {
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = dirname(__filename)
   const csvFilePath = path.resolve(__dirname, './zip_codes.csv')
   console.log(csvFilePath)
 
-  const zipCodes: any[] = []
+  const locations: any[] = []
 
   await new Promise<void>((resolve, reject) => {
     fs.createReadStream(csvFilePath)
       .pipe(csv())
       .on('data', (data: any) => {
         // Filter by target counties
-        zipCodes.push({
-          code: Number(data.code),
+        locations.push({
+          zip: data.zip,
           city: data.city,
           state_abbr: data.state_abbr,
           state_name: 'Tennessee',
@@ -29,8 +29,8 @@ export async function seedZipCodes(payload: Payload) {
         })
       })
       .on('end', () => {
-        console.log(zipCodes[0])
-        console.log(`Found ${zipCodes.length} zip codes in target counties`)
+        console.log(locations[0])
+        console.log(`Found ${locations.length} zip codes in target counties`)
         resolve()
       })
       .on('error', (error: Error) => {
@@ -39,10 +39,10 @@ export async function seedZipCodes(payload: Payload) {
       })
   })
 
-  for (const zipCode of zipCodes) {
+  for (const location of locations) {
     await payload.create({
-      collection: 'zipcodes',
-      data: zipCode,
+      collection: 'locations',
+      data: location,
     })
   }
 }

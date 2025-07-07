@@ -21,7 +21,7 @@ export const Properties: CollectionConfig = {
     {
       name: 'zipcode',
       type: 'relationship',
-      relationTo: 'zipcodes',
+      relationTo: 'locations',
       required: true,
       hasMany: false,
       admin: {
