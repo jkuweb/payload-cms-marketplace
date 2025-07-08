@@ -1,7 +1,13 @@
 import { formatPrice } from '@/lib/format-price'
 import route from '@/lib/routes'
-import { Feature, Property as PropertyType, Location as LocationType } from '@/payload-types'
+import { Feature, Property as PropertyType, Location as LocationType, Media } from '@/payload-types'
 import slugify from 'slugify'
+
+export type DecoratedPhoto = {
+  id: number
+  url: string | null
+  alt: string
+}
 
 export class Property {
   constructor(readonly data: PropertyType) {}
@@ -49,5 +55,23 @@ export class Property {
       id: this.data.id,
       full_address: fullAddress.join('/'),
     })
+  }
+  get description(): string {
+    return this.data.description ?? ''
+  }
+
+  get photos(): DecoratedPhoto[] {
+    const photos = (this.data.photos ?? []) as Media[]
+    const decoratedPhotos = photos
+      .filter((p) => !!p.url)
+      .map((photo) => {
+        return {
+          id: photo.id,
+          url: photo.url!,
+          alt: photo.alt,
+        }
+      })
+
+    return decoratedPhotos
   }
 }

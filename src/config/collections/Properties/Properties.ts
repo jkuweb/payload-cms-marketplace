@@ -1,7 +1,10 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, PayloadRequest } from 'payload'
 import { AfterReadHook } from 'node_modules/payload/dist/collections/config/types'
 import type { JSONSchema4 } from 'json-schema'
 import { generatePrimaryKey } from '@/lib/generate-primary-key'
+import slugify from 'slugify'
+import routes from '@/lib/routes'
+import type { Location } from '@/payload-types'
 
 const formatAddress: AfterReadHook = async ({ doc }) => {
   console.log({ location: doc.location })
@@ -19,11 +22,27 @@ const formatAddress: AfterReadHook = async ({ doc }) => {
   }
 }
 
+const generateUrl = async (id: string, req: PayloadRequest) => {
+  console.log('generating url', req)
+  const property = await req.payload.findByID({ collection: 'properties', id })
+  const location = property.location as Location
+  const fullAddress = [property.street, location.city, location.state_abbr, location.zip].map((l) =>
+    slugify(`${l}`, { lower: true }),
+  )
+  return (
+    req.payload.config.serverURL +
+    routes('property.show', {
+      id,
+      full_address: fullAddress.join('/'),
+    })
+  )
+}
+
 export const Properties: CollectionConfig = {
   slug: 'properties',
   admin: {
     useAsTitle: 'title',
-    preview: ({ id }) => `http://localhost:3000/properties/${id}`,
+    preview: (doc, options) => generateUrl(String(doc.id), options.req as PayloadRequest),
   },
   fields: [
     {
@@ -38,6 +57,10 @@ export const Properties: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'description',
+      type: 'textarea',
     },
     {
       name: 'street',
@@ -83,6 +106,12 @@ export const Properties: CollectionConfig = {
       },
     },
     {
+      name: 'photos',
+      type: 'upload',
+      relationTo: 'media',
+      hasMany: true,
+    },
+    {
       name: 'price',
       type: 'number',
     },
@@ -110,6 +139,32 @@ export const Properties: CollectionConfig = {
         {
           label: 'Not For Sale',
           value: 'notforsale',
+        },
+      ],
+    },
+    {
+      name: 'details',
+      type: 'group',
+      fields: [
+        {
+          name: 'bedrooms',
+          type: 'number',
+        },
+        {
+          name: 'bathrooms',
+          type: 'number',
+        },
+        {
+          name: 'squareFeet',
+          type: 'number',
+        },
+        {
+          name: 'lotSize',
+          type: 'number',
+        },
+        {
+          name: 'yearBuilt',
+          type: 'number',
         },
       ],
     },

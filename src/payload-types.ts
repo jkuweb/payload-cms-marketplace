@@ -189,6 +189,7 @@ export interface Location {
 export interface Property {
   id: string;
   title: string;
+  description?: string | null;
   street: string;
   address?: {
     street: string;
@@ -203,8 +204,16 @@ export interface Property {
    * Select a ZIP code for this property.
    */
   location: number | Location;
+  photos?: (number | Media)[] | null;
   price?: number | null;
   listingStatus: 'forsale' | 'pending' | 'contract' | 'sold' | 'notforsale';
+  details?: {
+    bedrooms?: number | null;
+    bathrooms?: number | null;
+    squareFeet?: number | null;
+    lotSize?: number | null;
+    yearBuilt?: number | null;
+  };
   features?: (number | Feature)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -355,11 +364,22 @@ export interface LocationsSelect<T extends boolean = true> {
 export interface PropertiesSelect<T extends boolean = true> {
   id?: T;
   title?: T;
+  description?: T;
   street?: T;
   address?: T;
   location?: T;
+  photos?: T;
   price?: T;
   listingStatus?: T;
+  details?:
+    | T
+    | {
+        bedrooms?: T;
+        bathrooms?: T;
+        squareFeet?: T;
+        lotSize?: T;
+        yearBuilt?: T;
+      };
   features?: T;
   updatedAt?: T;
   createdAt?: T;
