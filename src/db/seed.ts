@@ -2,6 +2,8 @@ import { getPayload } from 'payload'
 import config from '../payload.config'
 import { seedLocations } from './seeders/locations'
 import seedFeatures from './seeders/features'
+import { seedProperties } from './seeders/properties'
+import { seedUsers } from './seeders/users'
 async function seed() {
   console.log('Seeding database...')
 
@@ -23,10 +25,17 @@ async function seed() {
     where: {},
   })
 
+  await payload.delete({
+    collection: 'users',
+    where: {},
+  })
+
   console.log('Clearing zipcodes collection first...')
 
   await seedLocations(payload)
   await seedFeatures(payload)
+  await seedProperties(payload)
+  await seedUsers(payload)
 }
 
 seed()

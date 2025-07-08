@@ -190,7 +190,7 @@ export interface Property {
   id: number;
   title: string;
   street: string;
-  address: {
+  address?: {
     street: string;
     city: string;
     state: string;

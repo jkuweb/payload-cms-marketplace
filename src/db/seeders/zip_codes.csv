@@ -1,4 +1,4 @@
-id,code,city,state_abbr,state_name,county,latitude,longitude,est_population
+id,zip,city,state_abbr,state_name,county,latitude,longitude,est_population
 7997,37705,Andersonville,TN,Tennessee,Anderson County,36.2,-84.04,4680
 7998,37710,Briceville,TN,Tennessee,Anderson County,36.16,-84.3,750
 7999,37716,Clinton,TN,Tennessee,Anderson County,36.09,-84.13,22660

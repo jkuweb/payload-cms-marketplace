@@ -19,10 +19,16 @@ export default async function PropertiesPage({ params }: { params: { id: string 
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
             <div className="flex flex-row gap-1">
-              {/* <p>{property.address.street},</p>
-              <p>{property.address.city}</p>
-              <p>{property.address.state_abbr},</p>
-              <p>{property.address.zip}</p> */}
+              {property.address ? (
+                <>
+                  <p>{property.address.street},</p>
+                  <p>{property.address.city}</p>
+                  <p>{property.address.state_abbr},</p>
+                  <p>{property.address.zip}</p>
+                </>
+              ) : (
+                <p>No data found</p>
+              )}
             </div>
             <div className="flex flex-row gap-3">
               <h3 className="font-bold">Features</h3>

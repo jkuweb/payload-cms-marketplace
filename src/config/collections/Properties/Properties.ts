@@ -39,7 +39,6 @@ export const Properties: CollectionConfig = {
     {
       name: 'address',
       type: 'text',
-      required: true,
       admin: {
         hidden: true,
       },
