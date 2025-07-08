@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { AfterReadHook } from 'node_modules/payload/dist/collections/config/types'
 import type { JSONSchema4 } from 'json-schema'
+import { generatePrimaryKey } from '@/lib/generate-primary-key'
 
 const formatAddress: AfterReadHook = async ({ doc }) => {
   console.log({ location: doc.location })
@@ -25,6 +26,14 @@ export const Properties: CollectionConfig = {
     preview: ({ id }) => `http://localhost:3000/properties/${id}`,
   },
   fields: [
+    {
+      name: 'id',
+      type: 'text',
+      admin: {
+        hidden: true,
+      },
+      defaultValue: () => generatePrimaryKey(8),
+    },
     {
       name: 'title',
       type: 'text',

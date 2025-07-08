@@ -187,7 +187,7 @@ export interface Location {
  * via the `definition` "properties".
  */
 export interface Property {
-  id: number;
+  id: string;
   title: string;
   street: string;
   address?: {
@@ -244,7 +244,7 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'properties';
-        value: number | Property;
+        value: string | Property;
       } | null)
     | ({
         relationTo: 'features';
@@ -353,6 +353,7 @@ export interface LocationsSelect<T extends boolean = true> {
  * via the `definition` "properties_select".
  */
 export interface PropertiesSelect<T extends boolean = true> {
+  id?: T;
   title?: T;
   street?: T;
   address?: T;
