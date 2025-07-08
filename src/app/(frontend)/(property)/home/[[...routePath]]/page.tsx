@@ -1,3 +1,4 @@
+import { PropertyProvider } from '@/components/property/context'
 import { getPlayloadClient } from '@/db/client'
 import { notFound } from 'next/navigation'
 
@@ -16,8 +17,7 @@ export default async function PropertyDetailPage(params: Props) {
   if (!data) return notFound()
   return (
     <>
-      <h1>Property Detail Page</h1>
-      <div>{JSON.stringify(routePath, null, 2)}</div>
+      <PropertyProvider property={data}>hello</PropertyProvider>
     </>
   )
 }

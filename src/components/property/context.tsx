@@ -8,16 +8,17 @@ export const PropertyContext = createContext<PropertyType | null>(null)
 
 interface PropertyProviderProps {
   children: React.ReactNode
-  payload: PropertyType
+  property: PropertyType
 }
 
 export const PropertyProvider = (data: PropertyProviderProps) => {
-  const { children, payload } = data
-  return <PropertyContext.Provider value={payload}>{children}</PropertyContext.Provider>
+  const { children, property } = data
+  return <PropertyContext.Provider value={property}>{children}</PropertyContext.Provider>
 }
 
 export const useProperty = () => {
   const context = useContext(PropertyContext)
   if (!context) throw new Error('useProperty must used within a PropertyProvider')
   const property = new Property(context)
+  return property
 }
