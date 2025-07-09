@@ -34,7 +34,7 @@ export const PropertyGallery = () => {
           )}
 
           {/* Secondary images - visible based on screen size */}
-          <div className=" hidden h-full grid-cols-1 md:grid md:grid-cols-1 lg:grid-cols-2 large:grid-cols-3 md:grid-rows-2 md:col-span-4 lg:col-span-6 gap-1">
+          <div className=" hidden h-full grid-cols-1 md:grid md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 md:grid-rows-2 md:col-span-4 lg:col-span-6 gap-1">
             {gridImages.map((image, index) => {
               // Determine visibility based on screen size and image position
               let visibilityClass = ''
@@ -46,8 +46,8 @@ export const PropertyGallery = () => {
                 // Next two images visible on desktop and up
                 visibilityClass = 'hidden lg:block'
               } else {
-                // Last two images visible only on large screens
-                visibilityClass = 'hidden large:block'
+                // Last two images visible only on 2xl screens
+                visibilityClass = 'hidden 2xl:block'
               }
 
               if (!image.url) return null
