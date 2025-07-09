@@ -174,6 +174,12 @@ export const Properties: CollectionConfig = {
       relationTo: 'features',
       hasMany: true,
     },
+    {
+      name: 'agent',
+      type: 'relationship',
+      relationTo: 'agents',
+      hasMany: false,
+    },
   ],
   hooks: {
     afterRead: [formatAddress],

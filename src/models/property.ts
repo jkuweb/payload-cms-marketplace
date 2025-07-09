@@ -1,6 +1,12 @@
 import { formatPrice } from '@/lib/format-price'
 import route from '@/lib/routes'
-import { Feature, Property as PropertyType, Location as LocationType, Media } from '@/payload-types'
+import {
+  Feature,
+  Property as PropertyType,
+  Location as LocationType,
+  Media,
+  Agent,
+} from '@/payload-types'
 import slugify from 'slugify'
 
 export type DecoratedPhoto = {
@@ -73,5 +79,9 @@ export class Property {
       })
 
     return decoratedPhotos
+  }
+
+  get agent(): Agent {
+    return this.data.agent as Agent
   }
 }

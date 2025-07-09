@@ -72,6 +72,7 @@ export interface Config {
     locations: Location;
     properties: Property;
     features: Feature;
+    agents: Agent;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +84,7 @@ export interface Config {
     locations: LocationsSelect<false> | LocationsSelect<true>;
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
     features: FeaturesSelect<false> | FeaturesSelect<true>;
+    agents: AgentsSelect<false> | AgentsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -215,6 +217,7 @@ export interface Property {
     yearBuilt?: number | null;
   };
   features?: (number | Feature)[] | null;
+  agent?: (number | null) | Agent;
   updatedAt: string;
   createdAt: string;
 }
@@ -229,6 +232,26 @@ export interface Feature {
    */
   name: string;
   category: 'interior' | 'exterior' | 'community' | 'other';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "agents".
+ */
+export interface Agent {
+  id: number;
+  firstName: string;
+  lastName: string;
+  fullName?: string | null;
+  initials?: string | null;
+  /**
+   * e.g., "Realtor", "Senior Agent", "Broker"
+   */
+  title?: string | null;
+  profilePhoto?: (number | null) | Media;
+  phone?: string | null;
+  contact_email?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -258,6 +281,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'features';
         value: number | Feature;
+      } | null)
+    | ({
+        relationTo: 'agents';
+        value: number | Agent;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -381,6 +408,7 @@ export interface PropertiesSelect<T extends boolean = true> {
         yearBuilt?: T;
       };
   features?: T;
+  agent?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -391,6 +419,22 @@ export interface PropertiesSelect<T extends boolean = true> {
 export interface FeaturesSelect<T extends boolean = true> {
   name?: T;
   category?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "agents_select".
+ */
+export interface AgentsSelect<T extends boolean = true> {
+  firstName?: T;
+  lastName?: T;
+  fullName?: T;
+  initials?: T;
+  title?: T;
+  profilePhoto?: T;
+  phone?: T;
+  contact_email?: T;
   updatedAt?: T;
   createdAt?: T;
 }
