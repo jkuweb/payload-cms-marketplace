@@ -5,7 +5,7 @@ import { PropertyFeatures } from '@/components/property/features'
 import { PropertyGallery } from '@/components/property/gallery'
 import { PropertyMap } from '@/components/property/map'
 import { PropertyOverview } from '@/components/property/overview'
-import { getPlayloadClient } from '@/db/client'
+import { getPayloadClient } from '@/db/client'
 import { notFound, redirect } from 'next/navigation'
 import { Property as PropertyType } from '@/payload-types'
 import { PropertyInquiry } from '@/components/property/inquiry'
@@ -37,7 +37,7 @@ export default async function PropertyDetailPage({
 }) {
   const { routePath } = await params
   const propertyId = routePath[routePath.length - 1]
-  const payload = await getPlayloadClient()
+  const payload = await getPayloadClient()
   const property = await payload.findByID({
     collection: 'properties',
     id: propertyId,
