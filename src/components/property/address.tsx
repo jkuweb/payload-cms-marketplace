@@ -6,6 +6,7 @@ export const PropertyAddress = () => {
   if (!property.address) {
     return null
   }
+  console.log({ property })
   //<span className="font-semibold">5325 Roberts Rd</span>, Corryton, TN 37721
   return (
     <div>

@@ -1,4 +1,4 @@
-import { specializations } from '@/config/helpers/specializations'
+import { specializations } from '@/helpers/specialization'
 import { faker } from '@faker-js/faker'
 import { Payload } from 'payload'
 

@@ -10,14 +10,15 @@ import { Media } from '@/payload-types'
 
 export const AgentContact = () => {
   const property = useProperty()
-  const agent = property.agent
-  const profilePhoto = agent.profilePhoto as Media
+  const agent = property.agent ?? {}
+  const profilePhoto = (agent.profilePhoto as Media) ?? {}
 
   return (
     <div className="bg-white rounded-lg p-6 flex flex-col gap-4">
       <div className="flex items-start gap-4">
         <Avatar className="size-12">
           <AvatarImage src={profilePhoto.url!} />
+
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>

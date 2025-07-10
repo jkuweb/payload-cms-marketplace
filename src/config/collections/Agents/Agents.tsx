@@ -1,4 +1,3 @@
-import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter'
 import { CollectionConfig } from 'payload'
 
 export const Agents: CollectionConfig = {
@@ -12,29 +11,29 @@ export const Agents: CollectionConfig = {
       name: 'firstName',
       type: 'text',
       required: true,
-      hooks: {
-        afterRead: [
-          ({ data }) => {
-            if (!data) return null
-            const firstName = capitalizeFirstLetter(data.firstName)
-            return firstName
-          },
-        ],
-      },
+      // hooks: {
+      //   afterRead: [
+      //     ({ data }) => {
+      //       if (!data) return null
+      //       const firstName = capitalizeFirstLetter(data.firstName)
+      //       return firstName
+      //     },
+      //   ],
+      // },
     },
     {
       name: 'lastName',
       type: 'text',
       required: true,
-      hooks: {
-        afterRead: [
-          ({ data }) => {
-            if (!data) return null
-            const lastName = capitalizeFirstLetter(data.lastName)
-            return lastName
-          },
-        ],
-      },
+      // hooks: {
+      //   afterRead: [
+      //     ({ data }) => {
+      //       if (!data) return null
+      //       const lastName = capitalizeFirstLetter(data.lastName)
+      //       return lastName
+      //     },
+      //   ],
+      // },
     },
     {
       name: 'fullName',
@@ -47,9 +46,7 @@ export const Agents: CollectionConfig = {
         afterRead: [
           ({ data }) => {
             if (!data) return null
-            const firstName = capitalizeFirstLetter(data.firstName)
-            const lastName = capitalizeFirstLetter(data.lastName)
-            return `${firstName} ${lastName}`
+            return `${data.firstName} ${data.lastName}`
           },
         ],
       },
@@ -62,10 +59,10 @@ export const Agents: CollectionConfig = {
         hidden: true,
       },
       hooks: {
-        afterRead: [
+        afterChange: [
           ({ data }) => {
             if (!data) return null
-            return `${data.firstName.charAt(0).toUpperCase()} ${data.lastName.charAt(0).toUpperCase()}`
+            return `${data.firstName.charAt(0).toUpperCase()}${data.lastName.charAt(0).toUpperCase()}`
           },
         ],
       },

@@ -16,21 +16,21 @@ export async function seedProperties(payload: Payload): Promise<void> {
     limit: 100,
   })
 
-  // Get all media to randomly assign to properties
-  // const media = await payload.find({
-  //   collection: "media",
-  //   limit: 100,
-  //   where: {
-  //     filename: {
-  //       contains: "property_",
-  //     },
-  //   },
-  // })
+  //Get all media to randomly assign to properties
+  const media = await payload.find({
+    collection: 'media',
+    limit: 100,
+    where: {
+      filename: {
+        contains: 'property_',
+      },
+    },
+  })
 
-  // const agents = await payload.find({
-  //   collection: "agents",
-  //   limit: 100,
-  // })
+  const agents = await payload.find({
+    collection: 'agents',
+    limit: 100,
+  })
 
   const titleAdjectives = [
     'Modern',

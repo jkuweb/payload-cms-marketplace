@@ -1,12 +1,21 @@
 'use client'
+import { listingStatusMap } from '@/config/collections/Properties/listing-status-map'
 import { cn } from '@/lib/utils'
 import { useProperty } from './context'
-import { Property } from '@/payload-types'
 
-export const PropertyStatus = ({ listingStatus }: { listingStatus: Property['listingStatus'] }) => {
+export const PropertyStatus = () => {
+  const property = useProperty()
+
+  const listingStatus = property.listingStatus
   return (
-    <div className={cn('text-sm font-medium uppercase text-white px-3 py-1 rounded-xs')}>
-      {listingStatus}
+    <div
+      className={cn(
+        'text-sm font-medium uppercase text-white px-3 py-1 rounded-xs',
+        listingStatusMap[listingStatus].color,
+        listingStatusMap[listingStatus].foreground,
+      )}
+    >
+      {listingStatusMap[listingStatus].label}
     </div>
   )
 }

@@ -73,6 +73,8 @@ export interface Config {
     properties: Property;
     features: Feature;
     agents: Agent;
+    inquiries: Inquiry;
+    contacts: Contact;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -85,6 +87,8 @@ export interface Config {
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
     features: FeaturesSelect<false> | FeaturesSelect<true>;
     agents: AgentsSelect<false> | AgentsSelect<true>;
+    inquiries: InquiriesSelect<false> | InquiriesSelect<true>;
+    contacts: ContactsSelect<false> | ContactsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -191,7 +195,18 @@ export interface Location {
 export interface Property {
   id: string;
   title: string;
-  description?: string | null;
+  description: string;
+  price?: number | null;
+  listingStatus: 'forsale' | 'pending' | 'contract' | 'contingent' | 'sold' | 'offmarket' | 'notforsale';
+  details?: {
+    bedrooms?: number | null;
+    bathrooms?: number | null;
+    squareFeet?: number | null;
+    lotSize?: number | null;
+    yearBuilt?: number | null;
+    propertyType?: ('single-family' | 'multi-family' | 'condo' | 'townhouse' | 'land' | 'mobile-home' | 'other') | null;
+  };
+  photos?: (number | Media)[] | null;
   street: string;
   address?: {
     street: string;
@@ -202,20 +217,10 @@ export interface Property {
     full_address: string;
     [k: string]: unknown;
   };
-  /**
-   * Select a ZIP code for this property.
-   */
   location: number | Location;
-  photos?: (number | Media)[] | null;
-  price?: number | null;
-  listingStatus: 'forsale' | 'pending' | 'contract' | 'sold' | 'notforsale';
-  details?: {
-    bedrooms?: number | null;
-    bathrooms?: number | null;
-    squareFeet?: number | null;
-    lotSize?: number | null;
-    yearBuilt?: number | null;
-  };
+  /**
+   * Select the features for this property.
+   */
   features?: (number | Feature)[] | null;
   agent?: (number | null) | Agent;
   updatedAt: string;
@@ -257,6 +262,53 @@ export interface Agent {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiries".
+ */
+export interface Inquiry {
+  id: number;
+  contact: number | Contact;
+  property: string | Property;
+  message: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts".
+ */
+export interface Contact {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string | null;
+  preferredContact?: ('email' | 'phone' | 'text') | null;
+  status?: ('new' | 'contacted' | 'qualified' | 'active' | 'closed' | 'dnc') | null;
+  assignedTo?: (number | null) | Agent;
+  profile?: {
+    buyingTimeline?: ('immediately' | '3-months' | '6-months' | '1-year' | 'browsing') | null;
+    budgetRange?: {
+      min?: number | null;
+      max?: number | null;
+    };
+    preferredAreas?: string | null;
+    propertyTypes?:
+      | ('single-family' | 'multi-family' | 'condo' | 'townhouse' | 'land' | 'mobile-home' | 'other')[]
+      | null;
+  };
+  json?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -285,6 +337,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'agents';
         value: number | Agent;
+      } | null)
+    | ({
+        relationTo: 'inquiries';
+        value: number | Inquiry;
+      } | null)
+    | ({
+        relationTo: 'contacts';
+        value: number | Contact;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -392,10 +452,6 @@ export interface PropertiesSelect<T extends boolean = true> {
   id?: T;
   title?: T;
   description?: T;
-  street?: T;
-  address?: T;
-  location?: T;
-  photos?: T;
   price?: T;
   listingStatus?: T;
   details?:
@@ -406,7 +462,12 @@ export interface PropertiesSelect<T extends boolean = true> {
         squareFeet?: T;
         lotSize?: T;
         yearBuilt?: T;
+        propertyType?: T;
       };
+  photos?: T;
+  street?: T;
+  address?: T;
+  location?: T;
   features?: T;
   agent?: T;
   updatedAt?: T;
@@ -435,6 +496,45 @@ export interface AgentsSelect<T extends boolean = true> {
   profilePhoto?: T;
   phone?: T;
   contact_email?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiries_select".
+ */
+export interface InquiriesSelect<T extends boolean = true> {
+  contact?: T;
+  property?: T;
+  message?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts_select".
+ */
+export interface ContactsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  preferredContact?: T;
+  status?: T;
+  assignedTo?: T;
+  profile?:
+    | T
+    | {
+        buyingTimeline?: T;
+        budgetRange?:
+          | T
+          | {
+              min?: T;
+              max?: T;
+            };
+        preferredAreas?: T;
+        propertyTypes?: T;
+      };
+  json?: T;
   updatedAt?: T;
   createdAt?: T;
 }
