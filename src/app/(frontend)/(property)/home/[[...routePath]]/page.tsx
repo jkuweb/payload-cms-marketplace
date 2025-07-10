@@ -8,6 +8,7 @@ import { PropertyOverview } from '@/components/property/overview'
 import { getPlayloadClient } from '@/db/client'
 import { notFound, redirect } from 'next/navigation'
 import { Property as PropertyType } from '@/payload-types'
+import { PropertyInquiry } from '@/components/property/inquiry'
 
 // export async function generateMetadata({ params }: { params: Promise<{ routePath: string[] }> }) {
 //   const { routePath } = await params
@@ -58,7 +59,7 @@ export default async function PropertyDetailPage({
 
           <div className="col-start-3 col-span-8 md:col-span-4">
             <div className="sticky top-4">
-              <AgentContact />
+              <PropertyInquiry />
             </div>
           </div>
         </div>

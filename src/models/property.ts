@@ -18,6 +18,10 @@ export type DecoratedPhoto = {
 export class Property {
   constructor(readonly data: PropertyType) {}
 
+  get id(): string {
+    return this.data.id
+  }
+
   get title(): string {
     return this.data.title
   }
