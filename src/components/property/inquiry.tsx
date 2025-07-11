@@ -2,13 +2,13 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { MailIcon, PhoneCallIcon } from 'lucide-react'
-import { useProperty } from './context'
+import { useProperty } from '../../providers/property'
 import { Media } from '@/payload-types'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import { Inquiries } from '@/config/collections'
-import { PropertyInquiryForm } from '@/forms/property/form'
+import { PropertyInquiryForm } from '@/forms/property-inquiry/form'
 
 const backgroundColors = [
   '#D8E2DC', // Ash gray

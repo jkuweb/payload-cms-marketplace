@@ -3,7 +3,7 @@
 import { PropertyAddress } from './address'
 import { PropertyStatus } from './status'
 import { PropertyShare } from './share'
-import { useProperty } from './context'
+import { useProperty } from '../../providers/property'
 export const PropertyDetails = () => {
   const property = useProperty()
   return (

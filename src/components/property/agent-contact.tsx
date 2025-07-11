@@ -5,7 +5,7 @@ import { MailIcon, PhoneCallIcon } from 'lucide-react'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import { Button } from '../ui/button'
-import { useProperty } from './context'
+import { useProperty } from '../../providers/property'
 import { Media } from '@/payload-types'
 
 export const AgentContact = () => {

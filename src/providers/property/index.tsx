@@ -2,8 +2,7 @@
 
 import { createContext, useContext } from 'react'
 import { Property as PropertyType } from '@/payload-types'
-import { Property } from '@/models/property'
-
+import { PropertyDecorator } from '@/repository/property/property-decorator'
 export const PropertyContext = createContext<PropertyType | null>(null)
 
 interface PropertyProviderProps {
@@ -19,6 +18,6 @@ export const PropertyProvider = (data: PropertyProviderProps) => {
 export const useProperty = () => {
   const context = useContext(PropertyContext)
   if (!context) throw new Error('useProperty must used within a PropertyProvider')
-  const property = new Property(context)
-  return property
+
+  return new PropertyDecorator(context)
 }

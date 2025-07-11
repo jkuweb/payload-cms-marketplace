@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { schema } from './schema'
 import { toast } from 'sonner'
 import { faker } from '@faker-js/faker'
-import { useProperty } from '@/components/property/context'
+import { useProperty } from '@/providers/property'
 
 export function PropertyInquiryForm() {
   const property = useProperty()

@@ -1,5 +1,5 @@
 import { AgentContact } from '@/components/property/agent-contact'
-import { PropertyProvider } from '@/components/property/context'
+import { PropertyProvider } from '@/providers/property'
 import { PropertyDetails } from '@/components/property/details'
 import { PropertyFeatures } from '@/components/property/features'
 import { PropertyGallery } from '@/components/property/gallery'

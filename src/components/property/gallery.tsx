@@ -1,10 +1,11 @@
 'use client'
 
 import { Media } from '@/payload-types'
-import { useProperty } from './context'
+import { useProperty } from '../../providers/property'
 
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import Image from 'next/image'
+import { DialogTitle } from '@radix-ui/react-dialog'
 
 export const PropertyGallery = () => {
   const property = useProperty()
@@ -64,6 +65,7 @@ export const PropertyGallery = () => {
                 </DialogTrigger>
               )
             })}
+            <DialogTitle />
           </div>
         </div>
       </div>

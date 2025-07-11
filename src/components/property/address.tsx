@@ -1,5 +1,5 @@
 'use client'
-import { useProperty } from './context'
+import { useProperty } from '../../providers/property'
 
 export const PropertyAddress = () => {
   const property = useProperty()
